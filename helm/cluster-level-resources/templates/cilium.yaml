@@ -20,6 +20,8 @@ spec:
       ref: values
       {{- else }}
         values: |
+          prometheus:
+            enabled: true
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
