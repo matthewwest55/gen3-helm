@@ -9,7 +9,7 @@ global:
     # -- (bool) Will use ExternalSecret resources to pull secrets from Secrets Manager instead of creating them locally. Be cautious as this will override secrets you have deployed.
     deploy: false
     # -- (bool) Will create the databases and store the creds in Kubernetes Secrets even if externalSecrets is deployed. Useful if you want to use ExternalSecrets for other secrets besides db secrets.
-    dbCreate: false
+    createLocalK8sSecret: false
     # -- (string) Will deploy a separate External Secret Store for this service.
     separateSecretStore: false
     # -- (string) Will use a manually deployed clusterSecretStore if defined.
@@ -82,7 +82,7 @@ global:
   # -- (bool) If the service will be deployed with a Pod Disruption Budget. Note- you need to have more than 2 replicas for the pdb to be deployed.
   pdb: false
   # -- (int) The minimum amount of pods that are available at all times if the PDB is deployed.
-  minAvialable: 1
+  minAvailable: 1
   # -- (map) Kubernetes configuration
   crossplane:
     # -- (bool) Set to true if deploying to AWS and want to use crossplane for AWS resources.
@@ -102,9 +102,17 @@ global:
   autoscaling:
     enabled: false
     minReplicas: 1
-    maxReplicas: 100
-    targetCPUUtilizationPercentage: 80
-    targetMemoryUtilizationPercentage: 80
+    maxReplicas: 10
+    averageCPUValue: 500m
+    averageMemoryValue: 500Mi
+  # -- (map) Karpenter topology spread configuration.
+  topologySpread:
+    # -- (bool) Whether to enable topology spread constraints for all subcharts that support it.
+    enabled: false
+    # -- (string) The topology key to use for spreading. Defaults to "topology.kubernetes.io/zone".
+    topologyKey: "topology.kubernetes.io/zone"
+    # -- (int) The maxSkew to use for topology spread constraints. Defaults to 1.
+    maxSkew: 1
 
 #  -- (map) This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
 autoscaling: {}
@@ -128,6 +136,8 @@ externalSecrets:
   fenceGoogleStorageCredsSecret:
   # -- (string) Will override the name of the aws secrets manager secret. Default is "fence-config"
   fenceConfig:
+  # -- (bool) Whether to create the database and Secrets Manager secrets via PushSecret.
+  pushSecret: false
   # -- (string) Will override the name of the aws secrets manager secret. Default is "Values.global.environment-.Chart.Name-creds"
   dbcreds:
   # -- (string) Will override the name of the aws secrets manager secret. Default is "fence-ssh-keys"
@@ -155,7 +165,12 @@ usersync:
   slack_send_dbgap: false
   # -- (list) Environment variables to pass to the job.
   env:
-
+  # -- (string) Known hosts for dbGaP SFTP
+  sshKnownHosts: |
+    # example: <host> <keytype> <base64-key>
+    sftp-dev.planx-pla.net ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCwGT41cGGn980gatwRR/EdKGx0QpOW2ghN6vhXAsCZBXvD1xsH7pGHK/5V2SASW5HvsbU73SKcA0KbNhYHDXN03Qr8bQ5or8b7EWs13TvNAMsPzFhwExZbZ8Zqqe7+ll4aA6uLk8FT/i1JqaJWUiJDHMl06BSdaEncwqB1FnluuGuFCbtApcAkGFCv9SFT3EvjJszOXHWcH7w/ZcaQnhXjIHhLooacDussSKYOxstWALJpC1eYtM0e2yq/ZlJzK0o4XH7j46av2SMs1Q9Esif8rX6cjqknI3d7AQP49rSGvj4oMwJCp74O6UieK7QetzabOSey/9h2OiRrJKOcQGsoikUJeJ3u+4lnHSqaVPhTiw+TXCCIi8DUXJksU+G7YNqsA5LB93ZKZvM/VFRJflLIwtZgP10qi+B+fBnT3Mln296x7nH+esT3IIWTn1Wfut/RKNuHbe4rC2LcuEHWv0l2iJTotXamDHcfFjYkZze3gF4fBfO36/wwMQLeInQ99W76B2Q6uKC7I1fnESu7KQR6nOiuQrLH4TADGT8QitEZC8guyWrW4SCDnGXAlCeI7U7cIhFwVlOPxeGKvyz33izAQNMkIXNrONIxdlN1yvSGsOls+ONuaf1a3CrLeXujI3ULB3bc26GWCIWKn+tEa+uC5meFQPeVFwXB4Qgn3+V6VQ==
+    sftp-dev.planx-pla.net ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII12G7WwOj4xWHLwj2ZnpA8e/FwOwy97SlYslOpzKctT
+    s-5745d53f10e1421eb.server.transfer.us-east-1.amazonaws.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCNIOMhn0C6cf6pG0XnrXUP/TbzFgYN+tVoWzGuo4h8P5Foqev6Rs6gOXomu/vxONpNJ7/fl9oOAT3kD1Pdg0XkmEI2gksonwO5FRXEaMuz9be5d+uekrSuGSBV5ttoaiWvUootqbT8ZfG9aOHla/JbnvG9o8uijXdZsMZKgMRM/7tz+wF4Jp2+MqxMnpOS4NIknih16ZK2GTG4K2WmG4wsHmsLC+KMITc0UzDpD5aYWa+bicK4dsAk02Vu3R4FHsFdyMOZvdRbBRINlcmTYS7Ajd6Dow/iTDQGD5u2bOfPF0DGTg4jbwx7nnauEoMM20Ewr0QYdge6iac8VAzFfMOJ
 fenceCleanupExpiredGa4ghInfo:
   # -- (string) The cron schedule expression to use in the fence-visa-update cronjob. Runs 30 past the hour by default.
   schedule: "*/5 * * * *"
@@ -410,7 +425,7 @@ volumes:
   - name: fence-google-storage-creds-secret-volume
     secret:
       secretName: "fence-google-storage-creds-secret"
-  - name: fence-jwt-keys
+  - name: fence-jwt-keys-readonly
     secret:
       secretName: "fence-jwt-keys"
   - name: privacy-policy
@@ -467,9 +482,9 @@ volumeMounts:
     readOnly: true
     mountPath: "/var/www/fence/fence_google_storage_creds_secret.json"
     subPath: fence_google_storage_creds_secret.json
-  - name: "fence-jwt-keys"
+  - name: "fence-jwt-keys-readonly"
     readOnly: true
-    mountPath: "/fence/keys/key/jwt_private_key.pem"
+    mountPath: "/tmp/keys/readonly/jwt_private_key.pem"
     subPath: "jwt_private_key.pem"
   - name: "config-volume-public"
     readOnly: true
@@ -1228,6 +1243,17 @@ FENCE_CONFIG:
   # If you want an email address to show up when an unhandled error occurs, provide one
   # here. Something like: support@example.com
   SUPPORT_EMAIL_FOR_ERRORS: null
+
+  # //////////////////////////////////////////////////////////////////////////////////////
+  # USER ACTIVATION
+  # //////////////////////////////////////////////////////////////////////////////////////
+  # If you want new users (read: users that login for the first time) to automatically be
+  # allowed through and added to the Fence DB, set this to true. Otherwise, set this to false.
+  # Setting it to false will ensure the user will only be able to login after the user
+  # is added to the Fence DB via a separate process. This two-step process allows for
+  # a separate onboarding and user "approval" process, instead of the default automatic approval.
+  # https://github.com/uc-cdis/fence/blob/master/fence/config-default.yaml is the authoritative version
+  ALLOW_NEW_USER_ON_LOGIN: true
 
   # //////////////////////////////////////////////////////////////////////////////////////
   # SHIBBOLETH
