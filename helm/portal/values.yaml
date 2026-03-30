@@ -551,7 +551,6 @@ portalBuild:
     size: 1Gi
     cache:
       emptyDirSizeLimit: 500Mi
-  
   hotReapply: false
 
   images:
