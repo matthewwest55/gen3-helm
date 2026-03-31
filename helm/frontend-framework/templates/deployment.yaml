@@ -60,21 +60,22 @@ spec:
             - /bin/sh
             - -c
             - |
+              echo "Starting config puller"
               mkdir -p /tmp/repo
               cd /tmp/repo
               # Clone with sparse checkout and filter
-              git clone --depth 1 ${GIT_REPO} siteconfig
-              cd siteconfig
-
-              # Fetch the branch
-              git fetch origin ${GIT_BRANCH}:config_branch
-              git switch config_branch
+              echo "Starting config puller"
+              git clone --depth 1 --branch ${GIT_BRANCH} --filter=blob:none --sparse ${GIT_REPO} /tmp/repo
+              cd /tmp/repo
+              git sparse-checkout set ${CONFIG_DIR}
+              echo "Done cloning config"
               {{- if .Values.customConfig.dir }}
-              cp -r /tmp/repo/siteconfig/{{ .Values.customConfig.dir }}/config/* /gen3/config
-              cp -r /tmp/repo/siteconfig/{{ .Values.customConfig.dir }}/public/* /gen3/public
+              cp -r /tmp/repo/{{ .Values.customConfig.dir }}/config/* /gen3/config
+              cp -r /tmp/repo/{{ .Values.customConfig.dir }}/public/* /gen3/public
               {{- else }}
-              cp -r /tmp/repo/siteconfig/config/* /gen3/config
-              cp -r /tmp/repo/siteconfig/public/* /gen3/public
+              cp -r /tmp/repo/config/* /gen3/config
+              cp -r /tmp/repo/public/* /gen3/public
+              echo "Done copying config"
               {{- end }}
           volumeMounts:
             - name: config-volume
@@ -131,6 +132,12 @@ spec:
               value: /portal
             {{- end }}
           {{- if .Values.customConfig.enabled }}
+            - name: DATADOG_APPLICATION_ID
+              value: {{ .Values.env.DATADOG_APPLICATION_ID | quote }}
+            - name: DATADOG_CLIENT_TOKEN
+              value: {{ .Values.env.DATADOG_CLIENT_TOKEN | quote }}
+            - name: DATACOMMONS
+              value: {{ .Values.env.DATACOMMONS | quote }}
           volumeMounts:
             - name: config-volume
               mountPath: /gen3/config
