@@ -147,7 +147,10 @@ customConfig:
   branch: main
 
 # -- (list) List of environment variables to add to the deployment.
-env: []
+env:
+  DATADOG_APPLICATION_ID: ""
+  DATADOG_CLIENT_TOKEN: ""
+  DATACOMMONS: ""
 
 # -- (map) Node selector to apply to the pod
 nodeSelector: {}
