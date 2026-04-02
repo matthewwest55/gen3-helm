@@ -141,6 +141,10 @@ spec:
                 name: {{ include "frontend-framework.fullname" . }}-configmap
                 optional: true
           env:
+              {{- range $key, $value := .Values.env }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
             - name: PORT
               value: {{ .Values.port | quote }}
             - name: HOSTNAME
