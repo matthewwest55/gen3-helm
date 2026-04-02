@@ -1,6 +1,6 @@
 # frontend-framework
 
-![Version: 0.1.25](https://img.shields.io/badge/Version-0.1.25-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: develop](https://img.shields.io/badge/AppVersion-develop-informational?style=flat-square)
+![Version: 0.1.26](https://img.shields.io/badge/Version-0.1.26-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: develop](https://img.shields.io/badge/AppVersion-develop-informational?style=flat-square)
 
 A Helm chart for the gen3 frontend framework
 
@@ -29,7 +29,7 @@ A Helm chart for the gen3 frontend framework
 | customConfig.dir | string | `""` | directory to pull to the configuration from (e.g. gen3.datacommons.io/gen3ff) |
 | customConfig.enabled | bool | `false` |  |
 | customConfig.repo | string | `"https://github.com/uc-cdis/commons-frontend-app.git"` | Repository for the config for CDIS this is cdis-manifest |
-| env | list | `{"DATACOMMONS":"","DATADOG_APPLICATION_ID":"","DATADOG_CLIENT_TOKEN":""}` | List of environment variables to add to the deployment. |
+| env | list | `{"DATACOMMONS":"","DATADOG_APPLICATION_ID":"","DATADOG_CLIENT_TOKEN":"","HOSTNAME":"0.0.0.0","PORT":"3000"}` | List of environment variables to add to the deployment. |
 | fullnameOverride | string | `""` | Override the full name of the deployment. |
 | global | map | `{"autoscaling":{"averageCPUValue":"500m","averageMemoryValue":"500Mi","enabled":false,"maxReplicas":10,"minReplicas":1},"aws":{"awsAccessKeyId":null,"awsSecretAccessKey":null,"enabled":false},"dev":true,"dictionaryUrl":"https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json","dispatcherJobNum":10,"environment":"default","hostname":"localhost","kubeBucket":"kube-gen3","logsBucket":"logs-gen3","minAvailable":1,"netPolicy":{"enabled":false},"pdb":false,"portalApp":"gitops","postgres":{"dbCreate":true,"master":{"host":null,"password":null,"port":"5432","username":"postgres"}},"publicDataSets":true,"revproxyArn":"arn:aws:acm:us-east-1:123456:certificate","tierAccessLevel":"libre","topologySpread":{"enabled":false,"maxSkew":1,"topologyKey":"topology.kubernetes.io/zone"},"userYamlS3Path":"s3://cdis-gen3-users/test/user.yaml"}` | Global configuration options. |
 | global.aws | map | `{"awsAccessKeyId":null,"awsSecretAccessKey":null,"enabled":false}` | AWS configuration |
@@ -73,7 +73,6 @@ A Helm chart for the gen3 frontend framework
 | partOf | string | `"Front-End"` | Label to help organize pods and their use. Any value is valid, but use "_" or "-" to divide words. |
 | podAnnotations | map | `{}` | Annotations to add to the pod |
 | podSecurityContext | map | `{}` | Security context to apply to the pod |
-| port | int | `3000` |  |
 | release | string | `"dev"` | Valid options are "production" or "dev". If invalid option is set- the value will default to "dev". |
 | replicaCount | int | `1` | Number of replicas for the deployment. |
 | resources | map | `{"limits":{"memory":"4096Mi"},"requests":{"memory":"512Mi"}}` | Resource requests and limits for the containers in the pod |
