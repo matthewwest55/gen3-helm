@@ -145,10 +145,6 @@ spec:
             - name: {{ $key }}
               value: {{ $value | quote }}
             {{- end }}
-            - name: PORT
-              value: {{ .Values.port | quote }}
-            - name: HOSTNAME
-              value: revproxy-service
             {{- if eq "portal" .Values.global.frontendRoot }}
             - name: BASE_PATH
               value: /ff
