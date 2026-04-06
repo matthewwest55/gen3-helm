@@ -1,6 +1,6 @@
 # frontend-framework
 
-![Version: 0.1.26](https://img.shields.io/badge/Version-0.1.26-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: develop](https://img.shields.io/badge/AppVersion-develop-informational?style=flat-square)
+![Version: 0.1.27](https://img.shields.io/badge/Version-0.1.27-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: develop](https://img.shields.io/badge/AppVersion-develop-informational?style=flat-square)
 
 A Helm chart for the gen3 frontend framework
 
@@ -73,6 +73,7 @@ A Helm chart for the gen3 frontend framework
 | partOf | string | `"Front-End"` | Label to help organize pods and their use. Any value is valid, but use "_" or "-" to divide words. |
 | podAnnotations | map | `{}` | Annotations to add to the pod |
 | podSecurityContext | map | `{}` | Security context to apply to the pod |
+| port | int | `3000` |  |
 | release | string | `"dev"` | Valid options are "production" or "dev". If invalid option is set- the value will default to "dev". |
 | replicaCount | int | `1` | Number of replicas for the deployment. |
 | resources | map | `{"limits":{"memory":"4096Mi"},"requests":{"memory":"512Mi"}}` | Resource requests and limits for the containers in the pod |
