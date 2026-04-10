@@ -28,6 +28,10 @@ dependencies:
     version: 0.1.38
     repository: "file://../aws-es-proxy"
     condition: aws-es-proxy.enabled
+  - name: aws-sigv4-proxy
+    version: 0.1.0
+    repository: "file://../aws-sigv4-proxy"
+    condition: aws-sigv4-proxy.enabled
   - name: cedar
     version: 0.1.21
     repository: "file://../cedar"
@@ -60,15 +64,15 @@ dependencies:
     repository: file://../etl
     condition: etl.enabled
   - name: frontend-framework
-    version: 0.1.22
+    version: 0.1.27
     repository: "file://../frontend-framework"
     condition: frontend-framework.enabled
   - name: fence
-    version: 0.1.71
+    version: 0.1.73
     repository: "file://../fence"
     condition: fence.enabled
   - name: funnel
-    version: 0.1.12
+    version: 0.1.13
     repository: "file://../funnel"
     condition: gen3-workflow.enabled
   - name: gen3-user-data-library
@@ -76,7 +80,7 @@ dependencies:
     repository: "file://../gen3-user-data-library"
     condition: gen3-user-data-library.enabled
   - name: gen3-workflow
-    version: 0.1.14
+    version: 0.1.15
     repository: "file://../gen3-workflow"
     condition: gen3-workflow.enabled
   - name: guppy
@@ -84,7 +88,7 @@ dependencies:
     repository: "file://../guppy"
     condition: guppy.enabled
   - name: hatchery
-    version: 0.1.64
+    version: 0.1.65
     repository: "file://../hatchery"
     condition: hatchery.enabled
   - name: indexd
@@ -104,7 +108,7 @@ dependencies:
     repository: "file://../peregrine"
     condition: peregrine.enabled
   - name: portal
-    version: 0.1.55
+    version: 0.1.56
     repository: "file://../portal"
     condition: portal.enabled
   - name: requestor
@@ -112,7 +116,7 @@ dependencies:
     repository: "file://../requestor"
     condition: requestor.enabled
   - name: revproxy
-    version: 0.1.54
+    version: 0.1.55
     repository: "file://../revproxy"
     condition: revproxy.enabled
   - name: sheepdog
@@ -193,7 +197,7 @@ type: application
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
 
-version: 0.3.14
+version: 0.3.26
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
