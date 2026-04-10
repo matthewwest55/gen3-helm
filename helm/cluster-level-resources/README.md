@@ -1,6 +1,6 @@
 # cluster-level-resources
 
-![Version: 0.6.34](https://img.shields.io/badge/Version-0.6.34-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.17.0](https://img.shields.io/badge/AppVersion-1.17.0-informational?style=flat-square)
+![Version: 0.6.35](https://img.shields.io/badge/Version-0.6.35-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.17.0](https://img.shields.io/badge/AppVersion-1.17.0-informational?style=flat-square)
 
 An app-of-apps Helm chart that allows for flexible deployment of resources that support Gen3
 
@@ -183,6 +183,10 @@ An app-of-apps Helm chart that allows for flexible deployment of resources that 
 | kube-state-metrics.configuration.enabled | bool | `false` |  |
 | kube-state-metrics.enabled | bool | `false` |  |
 | kube-state-metrics.targetRevision | string | `"6.3.0"` |  |
+| metrics-server.configuration.enabled | bool | `false` |  |
+| metrics-server.enabled | bool | `false` |  |
+| metrics-server.hostNetworkEnabled | bool | `false` |  |
+| metrics-server.targetRevision | string | `"3.13.0"` |  |
 | nvidia-device-plugin.configuration.enabled | bool | `false` |  |
 | nvidia-device-plugin.enabled | bool | `false` |  |
 | nvidia-device-plugin.targetRevision | string | `"v0.18.0"` |  |
