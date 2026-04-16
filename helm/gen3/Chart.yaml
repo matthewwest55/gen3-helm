@@ -160,7 +160,7 @@ dependencies:
     repository: file://../ohdsi-atlas
     condition: ohdsi-atlas.enabled
   - name: ohdsi-webapi
-    version: 0.1.2
+    version: 0.1.3
     repository: file://../ohdsi-webapi
     condition: ohdsi-webapi.enabled
 
