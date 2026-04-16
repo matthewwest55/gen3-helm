@@ -1,6 +1,6 @@
 # gen3
 
-![Version: 0.3.26](https://img.shields.io/badge/Version-0.3.26-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: master](https://img.shields.io/badge/AppVersion-master-informational?style=flat-square)
+![Version: 0.3.27](https://img.shields.io/badge/Version-0.3.27-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: master](https://img.shields.io/badge/AppVersion-master-informational?style=flat-square)
 
 Helm chart to deploy Gen3 Data Commons
 
@@ -25,7 +25,7 @@ Helm chart to deploy Gen3 Data Commons
 | file://../audit | audit | 0.1.38 |
 | file://../aws-es-proxy | aws-es-proxy | 0.1.38 |
 | file://../aws-sigv4-proxy | aws-sigv4-proxy | 0.1.0 |
-| file://../cedar | cedar | 0.1.21 |
+| file://../cedar | cedar | 0.1.22 |
 | file://../cohort-middleware | cohort-middleware | 0.1.19 |
 | file://../common | common | 0.1.34 |
 | file://../dashboard | dashboard | 0.1.16 |
@@ -34,9 +34,9 @@ Helm chart to deploy Gen3 Data Commons
 | file://../dicom-server | dicom-server | 0.1.27 |
 | file://../embedding-management-service | embedding-management-service | 0.1.4 |
 | file://../etl | etl | 0.1.22 |
-| file://../fence | fence | 0.1.73 |
+| file://../fence | fence | 0.1.74 |
 | file://../frontend-framework | frontend-framework | 0.1.27 |
-| file://../funnel | funnel | 0.1.13 |
+| file://../funnel | funnel | 0.1.14 |
 | file://../gen3-analysis | gen3-analysis | 0.1.9 |
 | file://../gen3-network-policies | gen3-network-policies | 0.1.3 |
 | file://../gen3-user-data-library | gen3-user-data-library | 0.1.12 |
@@ -48,7 +48,7 @@ Helm chart to deploy Gen3 Data Commons
 | file://../metadata | metadata | 0.1.41 |
 | file://../neuvector | neuvector | 0.1.2 |
 | file://../ohdsi-atlas | ohdsi-atlas | 0.1.1 |
-| file://../ohdsi-webapi | ohdsi-webapi | 0.1.1 |
+| file://../ohdsi-webapi | ohdsi-webapi | 0.1.2 |
 | file://../ohif-viewer | ohif-viewer | 0.1.10 |
 | file://../orthanc | orthanc | 0.1.11 |
 | file://../peregrine | peregrine | 0.1.40 |
