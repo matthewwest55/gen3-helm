@@ -19,7 +19,7 @@ Helm chart to deploy Gen3 Data Commons
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../access-backend | access-backend | 0.1.18 |
-| file://../ambassador | ambassador | 0.1.34 |
+| file://../ambassador | ambassador | 0.1.35 |
 | file://../arborist | arborist | 0.1.32 |
 | file://../argo-wrapper | argo-wrapper | 0.1.27 |
 | file://../audit | audit | 0.1.39 |
@@ -31,13 +31,13 @@ Helm chart to deploy Gen3 Data Commons
 | file://../dashboard | dashboard | 0.1.17 |
 | file://../data-upload-cron | data-upload-cron | 0.1.4 |
 | file://../datareplicate | datareplicate | 0.1.19 |
-| file://../dicom-server | dicom-server | 0.1.27 |
+| file://../dicom-server | dicom-server | 0.1.28 |
 | file://../embedding-management-service | embedding-management-service | 0.1.5 |
 | file://../etl | etl | 0.1.22 |
 | file://../fence | fence | 0.1.74 |
 | file://../frontend-framework | frontend-framework | 0.1.27 |
 | file://../funnel | funnel | 0.1.14 |
-| file://../gen3-analysis | gen3-analysis | 0.1.9 |
+| file://../gen3-analysis | gen3-analysis | 0.1.10 |
 | file://../gen3-network-policies | gen3-network-policies | 0.1.3 |
 | file://../gen3-user-data-library | gen3-user-data-library | 0.1.13 |
 | file://../gen3-workflow | gen3-workflow | 0.1.15 |
