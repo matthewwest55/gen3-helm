@@ -4,6 +4,9 @@ description: Helm chart to deploy Gen3 Data Commons
 
 # Dependencies
 dependencies:
+  - name: pub-sub
+    version: 0.1.0
+    repository: "file://../pub-sub"
   - name: access-backend
     version: 0.1.18
     repository: "file://../access-backend"
