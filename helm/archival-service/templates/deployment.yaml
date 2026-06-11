@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          env:
+            - name: GEN3_DEBUG
+              value: "False"
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: archival-service-dbcreds
+                  key: host
+                  optional: false
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: archival-service-dbcreds
+                  key: username
+                  optional: false
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: archival-service-dbcreds
+                  key: password
+                  optional: false
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: archival-service-dbcreds
+                  key: database
+                  optional: false
+            - name: DBREADY
+              valueFrom:
+                secretKeyRef:
+                  name: archival-service-dbcreds
+                  key: dbcreated
+                  optional: false
+          ports:
+            - containerPort: 8000

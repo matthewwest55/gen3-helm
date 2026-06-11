@@ -1,0 +1,14 @@
+apiVersion: v2
+name: archival-service
+description: Archival service for Gen3
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+dependencies:
+  - name: common
+    version: 0.1.34
+    repository: file://../common
+  - name: postgresql
+    version: 11.9.13
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: postgres.separate
