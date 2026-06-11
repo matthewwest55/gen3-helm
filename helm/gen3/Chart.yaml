@@ -4,6 +4,9 @@ description: Helm chart to deploy Gen3 Data Commons
 
 # Dependencies
 dependencies:
+  - name: archival-service
+    version: 0.1.0
+    repository: "file://../archival-service"
   - name: pub-sub
     version: 0.1.0
     repository: "file://../pub-sub"
