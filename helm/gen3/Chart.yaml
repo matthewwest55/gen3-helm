@@ -4,6 +4,9 @@ description: Helm chart to deploy Gen3 Data Commons
 
 # Dependencies
 dependencies:
+  - name: matt-tes
+    version: 0.1.0
+    repository: "file://../matt-tes"
   - name: archival-service
     version: 0.1.0
     repository: "file://../archival-service"
