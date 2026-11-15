@@ -7,12 +7,15 @@ dependencies:
   - name: matt-tes
     version: 0.1.0
     repository: "file://../matt-tes"
+    condition: matt-tes.enabled
   - name: archival-service
     version: 0.1.0
     repository: "file://../archival-service"
+    condition: archival-service.enabled
   - name: pub-sub
     version: 0.1.0
     repository: "file://../pub-sub"
+    condition: pub-sub.enabled
   - name: access-backend
     version: 0.1.18
     repository: "file://../access-backend"
