@@ -36,7 +36,10 @@ spec:
           requests:
             cpu: "250m"
             memory: "256Mi"
-
+        volumeMounts:
+          - name: gcp-key
+            mountPath: {{ .Values.gcpKey.mountPath }}
+            readOnly: true
       # Container 2: The Isolated Docker-in-Docker Daemon
       - name: dind-daemon
         image: docker:24-dind
@@ -59,3 +62,6 @@ spec:
       volumes:
       - name: docker-graph-storage
         emptyDir: {}
+      - name: gcp-key
+        secret:
+          secretName: {{ .Values.gcpKey.secretName }}
